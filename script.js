@@ -215,3 +215,37 @@ printBtn.addEventListener("click", () => {
 //==============================
 
 calculateGrandTotal();
+
+
+//=============================
+// Monthly Summary
+//=============================
+
+const totalMarket = document.getElementById("totalMarket");
+const totalMeal = document.getElementById("totalMeal");
+const mealRate = document.getElementById("mealRate");
+
+const totalSetup = document.getElementById("totalSetup");
+const setupPerPerson = document.getElementById("setupPerPerson");
+
+function calculateSummary() {
+
+    // মিল রেট
+    let market = Number(totalMarket.value) || 0;
+    let meal = Number(totalMeal.value) || 0;
+
+    if (meal > 0) {
+        mealRate.value = (market / meal).toFixed(2);
+    } else {
+        mealRate.value = "";
+    }
+
+    // সংস্থাপন
+    let setup = Number(totalSetup.value) || 0;
+
+    setupPerPerson.value = (setup / 7).toFixed(2);
+}
+
+totalMarket.addEventListener("input", calculateSummary);
+totalMeal.addEventListener("input", calculateSummary);
+totalSetup.addEventListener("input", calculateSummary);

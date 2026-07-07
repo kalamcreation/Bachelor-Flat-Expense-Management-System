@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>বাসা খরচ ম্যানেজমেন্ট</title>
+    <title>ব্যাচেলর ফ্ল্যাট এক্সপেন্স ম্যানেজমেন্ট</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,29 +37,89 @@
         </p>
       </div>
 
-      <!-- Buttons -->
+      <!-- Top Section -->
+      <div class="flex flex-col lg:flex-row justify-between items-start gap-6 mb-6">
 
-      <div class="flex flex-wrap gap-3 mb-5">
-        <button
-          id="addRow"
-          class="bg-primary hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold"
-        >
-          ➕ নতুন সদস্য
-        </button>
+          <!-- Left Buttons -->
+          <div class="flex flex-wrap items-start gap-3 self-start">
 
-        <button
-          id="printBtn"
-          class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-semibold"
-        >
-          🖨 Print
-        </button>
+              <button
+                  id="addRow"
+                  class="bg-primary hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-semibold shadow transition duration-300">
+                  ➕ নতুন সদস্য
+              </button>
 
-        <button
-          id="clearBtn"
-          class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg font-semibold"
-        >
-          🗑 Clear
-        </button>
+              <button
+                  id="printBtn"
+                  class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-lg font-semibold shadow transition duration-300">
+                  🖨 Print
+              </button>
+
+              <button
+                  id="clearBtn"
+                  class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-lg font-semibold shadow transition duration-300">
+                  🗑 Clear
+              </button>
+
+          </div>
+
+          <!-- Monthly Summary -->
+          <div class="bg-white rounded-xl shadow-lg p-5 w-full lg:w-[420px]">
+
+              <h2 class="text-2xl font-bold text-primary mb-4">
+                  মাসিক হিসাব
+              </h2>
+
+              <div class="space-y-3">
+
+                  <div class="flex justify-between items-center">
+                      <label class="font-medium">টোটাল বাজার</label>
+                      <input
+                          id="totalMarketInput"
+                          type="number"
+                          class="border rounded px-3 py-2 w-40">
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                      <label class="font-medium">টোটাল মিল</label>
+                      <input
+                          id="totalMealInput"
+                          type="number"
+                          class="border rounded px-3 py-2 w-40">
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                      <label class="font-medium">মিল রেট</label>
+                      <input
+                          id="mealRate"
+                          type="text"
+                          readonly
+                          class="bg-gray-100 border rounded px-3 py-2 w-40 font-bold">
+                  </div>
+
+                  <hr>
+
+                  <div class="flex justify-between items-center">
+                      <label class="font-medium">মোট সংস্থাপন</label>
+                      <input
+                          id="setupTotalInput"
+                          type="number"
+                          class="border rounded px-3 py-2 w-40">
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                      <label class="font-medium">সংস্থাপন</label>
+                      <input
+                          id="setupRate"
+                          type="text"
+                          readonly
+                          class="bg-gray-100 border rounded px-3 py-2 w-40 font-bold">
+                  </div>
+
+              </div>
+
+          </div>
+
       </div>
 
       <!-- Table -->
