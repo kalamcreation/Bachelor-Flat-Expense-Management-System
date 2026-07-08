@@ -122,7 +122,7 @@ function calculateGrandTotal() {
 addRowBtn.addEventListener("click", () => {
   const row = document.createElement("tr");
 
-  row.innerHTML = `
+  row.innerHTML = ` 
 
 <td class="border p-2">
 <input
@@ -172,7 +172,7 @@ class="others amount w-24 border rounded px-2 py-1">
 
 <td class="border p-2 font-bold balance text-green-600">0</td>
 
-<td class="border p-2">
+<td class="border p-2 no-print">
 
 <button
 class="deleteRow bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">

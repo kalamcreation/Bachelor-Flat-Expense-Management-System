@@ -8,6 +8,26 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+
+    <style>
+        @media print {
+
+            .no-print{
+                display:none !important;
+            }
+
+            body{
+                background:#fff !important;
+            }
+
+            table{
+                width:100% !important;
+                border-collapse:collapse;
+            }
+
+        }
+    </style>  
+
     <script>
       tailwind.config = {
         theme: {
@@ -38,82 +58,96 @@
       </div>
 
       <!-- Top Section -->
+      <!-- Top Section -->
       <div class="flex flex-col lg:flex-row justify-between items-start gap-6 mb-6">
 
-          <!-- Left Buttons -->
-          <div class="flex flex-wrap items-start gap-3 self-start">
+          <!-- Left Side -->
+          <div class="flex-1">
 
-              <button
-                  id="addRow"
-                  class="bg-primary hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-semibold shadow transition duration-300">
-                  ➕ নতুন সদস্য
-              </button>
+              <!-- Buttons -->
+              <div class="flex flex-wrap gap-3 mb-4 no-print">
+                  <button id="addRow"
+                      class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold">
+                      ➕ নতুন সদস্য
+                  </button>
 
-              <button
-                  id="printBtn"
-                  class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-lg font-semibold shadow transition duration-300">
-                  🖨 Print
-              </button>
+                  <button id="printBtn"
+                      class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-semibold">
+                      🖨 Print
+                  </button>
 
-              <button
-                  id="clearBtn"
-                  class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-lg font-semibold shadow transition duration-300">
-                  🗑 Clear
-              </button>
+                  <button id="clearBtn"
+                      class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg font-semibold">
+                      🗑 Clear
+                  </button>
+              </div>
 
-          </div>
+              <!-- Monthly Summary -->
+              <div class="bg-white rounded-xl shadow-md border p-4">
 
-          <!-- Monthly Summary -->
-          <div class="bg-white rounded-xl shadow-lg p-5 w-full lg:w-[420px]">
+                  <h2 class="text-xl font-bold text-blue-700 mb-4">
+                      📊 মাসিক হিসাব
+                  </h2>
 
-              <h2 class="text-2xl font-bold text-primary mb-4">
-                  মাসিক হিসাব
-              </h2>
+                  <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
 
-              <div class="space-y-3">
+                      <!-- টোটাল বাজার -->
+                      <div>
+                          <label class="block font-semibold mb-1">
+                              টোটাল বাজার
+                          </label>
 
-                  <div class="flex justify-between items-center">
-                      <label class="font-medium">টোটাল বাজার</label>
-                      <input
-                          id="totalMarketInput"
-                          type="number"
-                          class="border rounded px-3 py-2 w-40">
-                  </div>
+                          <input type="number"
+                              id="totalMarket"
+                              class="w-full border rounded-lg px-3 py-2">
+                      </div>
 
-                  <div class="flex justify-between items-center">
-                      <label class="font-medium">টোটাল মিল</label>
-                      <input
-                          id="totalMealInput"
-                          type="number"
-                          class="border rounded px-3 py-2 w-40">
-                  </div>
+                      <!-- টোটাল মিল -->
+                      <div>
+                          <label class="block font-semibold mb-1">
+                              টোটাল মিল
+                          </label>
 
-                  <div class="flex justify-between items-center">
-                      <label class="font-medium">মিল রেট</label>
-                      <input
-                          id="mealRate"
-                          type="text"
-                          readonly
-                          class="bg-gray-100 border rounded px-3 py-2 w-40 font-bold">
-                  </div>
+                          <input type="number"
+                              id="totalMeal"
+                              class="w-full border rounded-lg px-3 py-2">
+                      </div>
 
-                  <hr>
+                      <!-- মিল রেট -->
+                      <div>
+                          <label class="block font-semibold mb-1">
+                              মিল রেট
+                          </label>
 
-                  <div class="flex justify-between items-center">
-                      <label class="font-medium">মোট সংস্থাপন</label>
-                      <input
-                          id="setupTotalInput"
-                          type="number"
-                          class="border rounded px-3 py-2 w-40">
-                  </div>
+                          <input type="text"
+                              id="mealRate"
+                              readonly
+                              class="w-full bg-gray-100 border rounded-lg px-3 py-2 font-bold text-blue-600">
+                      </div>
 
-                  <div class="flex justify-between items-center">
-                      <label class="font-medium">সংস্থাপন</label>
-                      <input
-                          id="setupRate"
-                          type="text"
-                          readonly
-                          class="bg-gray-100 border rounded px-3 py-2 w-40 font-bold">
+                      <!-- মোট সংস্থাপন -->
+                      <div>
+                          <label class="block font-semibold mb-1">
+                              মোট সংস্থাপন
+                          </label>
+
+                          <input type="number"
+                              id="totalSetup"
+                              class="w-full border rounded-lg px-3 py-2">
+                      </div>
+
+                      <!-- প্রতি জন সংস্থাপন -->
+                      <div>
+                          <label class="block font-semibold mb-1">
+                              সংস্থাপন (প্রতি জন)
+                          </label>
+
+                          <input type="text"
+                              id="setupPerPerson"
+                              readonly
+                              class="w-full bg-gray-100 border rounded-lg px-3 py-2 font-bold text-green-600">
+                      </div>
+
                   </div>
 
               </div>
@@ -146,7 +180,7 @@
 
               <th class="border p-3 bg-purple-400 text-black">পাবে / দিবে</th>
 
-              <th class="border p-3">Action</th>
+              <th class="border p-3 no-print">Action</th>
             </tr>
           </thead>
 
@@ -208,7 +242,7 @@
 
               <td class="border p-2 font-bold balance text-blue-600">0</td>
 
-              <td class="border p-2">
+              <td class="border p-2 no-print">
                 <button
                   class="deleteRow bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
                 >
@@ -233,6 +267,10 @@
           </tfoot>
         </table>
       </div>
+    </div>
+
+    <div class="text-center">
+      <h4>Create with 💕 by K@lam</h4>
     </div>
 
     <script src="script.js"></script>
