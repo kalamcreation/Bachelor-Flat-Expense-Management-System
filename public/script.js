@@ -1,4 +1,4 @@
-const socket = io(); // সার্ভারের সাথে কানেক্ট করা
+const socket = io(); 
 
 const tableBody = document.getElementById("tableBody");
 const grandExpense = document.getElementById("grandExpense");
@@ -13,9 +13,10 @@ const totalMarket = document.getElementById("totalMarket");
 const totalMeal = document.getElementById("totalMeal");
 const mealRate = document.getElementById("mealRate");
 const totalSetup = document.getElementById("totalSetup");
+const totalMembersInput = document.getElementById("totalMembersInput");
 const setupPerPerson = document.getElementById("setupPerPerson");
 
-let isFromServer = false; // ইনফাইনাইট লুপ এড়ানোর জন্য ফ্ল্যাগ
+let isFromServer = false;
 
 //==============================
 // Send Data to Server (Real-time Sync)
@@ -39,13 +40,13 @@ function saveData() {
     totalMarket: totalMarket.value,
     totalMeal: totalMeal.value,
     totalSetup: totalSetup.value,
+    totalMembers: totalMembersInput.value,
     rows: rows,
   };
 
   socket.emit("update_data", appData);
 }
 
-// সার্ভার থেকে ডাটা রিসিভ করা
 socket.on("load_data", (data) => {
   renderData(data);
 });
@@ -61,8 +62,9 @@ function renderData(data) {
   totalMarket.value = data.totalMarket || "";
   totalMeal.value = data.totalMeal || "";
   totalSetup.value = data.totalSetup || "";
+  totalMembersInput.value = data.totalMembers || "7";
 
-  calculateSummary(false); // সার্ভার থেকে আপডেট আসlর সময় লুপ আটকাতে ফলস দেওয়া ভালো
+  calculateSummary(false);
 
   tableBody.innerHTML = "";
   if (data.rows && data.rows.length > 0) {
@@ -92,7 +94,7 @@ function attachEvents(row) {
   row.querySelector(".deleteRow").addEventListener("click", () => {
     if (tableBody.rows.length > 1) {
       row.remove();
-      updateSetupPerPerson();
+      updateSetupPerPerson(false);
       calculateGrandTotal();
       saveData();
     } else {
@@ -203,7 +205,7 @@ function addRow(data = {}, triggerSave = true) {
 
   tableBody.appendChild(row);
   attachEvents(row);
-  updateSetupPerPerson();
+  updateSetupPerPerson(false);
   calculateRow(row);
   calculateGrandTotal();
   
@@ -223,9 +225,18 @@ function calculateSummary(triggerSave = true) {
     mealRate.value = "0.00";
   }
 
-  updateSetupPerPerson();
+  updateSetupPerPerson(triggerSave);
+}
+
+function updateSetupPerPerson(triggerSave = true) {
+  let setupTotal = Number(totalSetup.value) || 0;
+  let totalMembers = Number(totalMembersInput.value) || 1;
   
+  let perPersonSetup = totalMembers > 0 ? setupTotal / totalMembers : 0; 
+  setupPerPerson.value = perPersonSetup.toFixed(2);
+
   tableBody.querySelectorAll("tr").forEach((row) => {
+    row.querySelector(".setup").value = perPersonSetup.toFixed(2);
     calculateRow(row);
   });
   calculateGrandTotal();
@@ -233,21 +244,11 @@ function calculateSummary(triggerSave = true) {
   if (triggerSave) saveData();
 }
 
-function updateSetupPerPerson() {
-  let setupTotal = Number(totalSetup.value) || 0;
-  let perPersonSetup = setupTotal / 7; 
-  setupPerPerson.value = perPersonSetup.toFixed(2);
-
-  tableBody.querySelectorAll("tr").forEach((row) => {
-    row.querySelector(".setup").value = perPersonSetup.toFixed(2);
-    calculateRow(row);
-  });
-}
-
 // Event Listeners for Summary Inputs
 totalMarket.addEventListener("input", () => calculateSummary());
 totalMeal.addEventListener("input", () => calculateSummary());
 totalSetup.addEventListener("input", () => calculateSummary());
+totalMembersInput.addEventListener("input", () => calculateSummary());
 
 addRowBtn.addEventListener("click", () => {
   addRow();
@@ -259,6 +260,7 @@ clearBtn.addEventListener("click", () => {
     totalMarket.value = "";
     totalMeal.value = "";
     totalSetup.value = "";
+    totalMembersInput.value = "7";
     mealRate.value = "";
     setupPerPerson.value = "";
     addRow();
@@ -271,5 +273,4 @@ printBtn.addEventListener("click", () => {
   window.print();
 });
 
-// Initial Connection Request to Server
 socket.emit("get_data");
